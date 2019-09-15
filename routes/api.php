@@ -13,11 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::namespace('Auth')->as('auth.')->group(function () {
+    Route::post('login', 'LoginController@login')->name('login');
+});
+
 Route::resource('posts', 'PostController')->only([
-    'index', 'show',
+    'index',
+    'show',
 ]);
+
 Route::middleware('auth:api')->group(function () {
     Route::resource('posts', 'PostController')->only([
         'store',
     ]);
+
+    Route::get('user', 'UserController@getAuth')->name('user');
 });
