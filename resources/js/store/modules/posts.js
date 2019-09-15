@@ -1,4 +1,4 @@
-import { POSTS_GET_REQUEST, POSTS_GET_SUCCESS, POSTS_STORE_REQUEST, POSTS_UPDATE_REQUEST, POSTS_UPDATE_SUCCESS, POSTS_DELETE_REQUEST } from '../actions/posts';
+import { POSTS_GET_REQUEST, POSTS_GET_SUCCESS, POSTS_STORE_REQUEST, POSTS_UPDATE_REQUEST, POSTS_UPDATE_SUCCESS } from '../actions/posts';
 import axios from 'axios';
 import Vue from 'vue';
 
@@ -61,18 +61,6 @@ const actions = {
             axios({url: '/api/posts/' + payload.id, data: payload, method: 'PUT'})
                 .then(resp => {
                     commit(POSTS_UPDATE_SUCCESS, {post: payload});
-                    resolve(resp);
-                })
-                .catch(err => {
-                    reject(err);
-                });
-        });
-    },
-    [POSTS_DELETE_REQUEST]: ({commit, getters, dispatch}, postId) => {
-        return new Promise((resolve, reject) => {
-            axios({url: '/api/posts/' + postId, method: 'DELETE'})
-                .then(resp => {
-                    dispatch(POSTS_GET_REQUEST, getters.currentPage);
                     resolve(resp);
                 })
                 .catch(err => {

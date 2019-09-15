@@ -20,35 +20,20 @@
                     </div>
                 </router-link>
             </div>
-
-<!--            <div class="card-footer post__actions" v-show="showActions">-->
-<!--                <button class="btn btn-danger" @click="deletePost(post.id)">-->
-<!--                    Delete-->
-<!--                </button>-->
-<!--            </div>-->
         </div>
     </li>
 </template>
 
 <script>
-    import {POSTS_DELETE_REQUEST} from "../../store/actions/posts";
-
     export default {
         data() {
             return {
                 showActions: false,
-            }
+            };
         },
         props: {
             post: Object,
             required: true,
-        },
-        methods: {
-            deletePost(id) {
-                if (confirm('Do you really want to delete?')) {
-                    this.$store.dispatch(POSTS_DELETE_REQUEST, id);
-                }
-            }
         },
     }
 </script>
