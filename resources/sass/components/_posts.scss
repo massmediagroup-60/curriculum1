@@ -1,0 +1,61 @@
+// ====================================
+// Posts
+// ====================================
+
+.posts {
+    list-style-type: none;
+}
+
+.post {
+    margin-bottom: 10px;
+
+    &__body {
+        a {
+            text-decoration: none;
+            color: $black;
+
+            &:visited {
+                color: $black;
+            }
+        }
+    }
+
+    &__title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+            color: $indigo;
+        }
+    }
+
+    &__meta {
+        color: $gray;
+    }
+
+    &__tags {
+        color: $gray;
+    }
+
+    &__desc {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__actions {
+        background-color: $white;
+
+        button {
+            font-weight: bold;
+            color: $white;
+        }
+
+        a {
+            font-weight: bold;
+            color: $white;
+            text-decoration: none;
+        }
+    }
+}

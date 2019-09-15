@@ -1,0 +1,44 @@
+// ====================================
+// Tags
+// ====================================
+
+.tags-list {
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+
+    li {
+        float: left;
+    }
+}
+
+.tag-item {
+    position: relative;
+    background: $indigoLight;
+    display: block;
+    max-width: 100%;
+    word-wrap: break-word;
+    color: $blackLight;
+    padding: 5px 30px 5px 5px;
+    border-radius: 2px;
+    margin: 0 5px 5px 0;
+
+    button {
+        position: absolute;
+        background: 0 0;
+        display: block;
+        width: 30px;
+        height: 30px;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        color: $red;
+        line-height: 30px;
+        padding: 0;
+        border: 0;
+        margin-top: 5px;
+    }
+}
