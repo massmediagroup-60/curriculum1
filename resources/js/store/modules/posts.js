@@ -1,4 +1,12 @@
-import { POSTS_GET_REQUEST, POSTS_GET_SUCCESS, POSTS_STORE_REQUEST, POSTS_UPDATE_REQUEST, POSTS_UPDATE_SUCCESS } from '../actions/posts';
+import {
+    POSTS_GET_REQUEST,
+    POSTS_GET_SUCCESS,
+    POSTS_STORE_REQUEST,
+    POSTS_UPDATE_REQUEST,
+    POSTS_UPDATE_SUCCESS,
+    POSTS_SEARCH_REQUEST,
+    POSTS_SEARCH_CLEAR,
+} from '../actions/posts';
 import axios from 'axios';
 import Vue from 'vue';
 
@@ -10,6 +18,7 @@ const state = {
         currentPage: null,
     },
     posts: [],
+    search: '',
 };
 
 const getters = {
@@ -21,18 +30,20 @@ const getters = {
     getPostById: (state) => (id) => {
         return state.posts.find(post => post.id === id);
     },
+    searched: state => state.search,
 };
 
 const actions = {
-    [POSTS_GET_REQUEST]: ({commit, dispatch}, payload) => {
+    [POSTS_GET_REQUEST]: ({commit, dispatch, getters}, payload) => {
         return new Promise((resolve, reject) => {
             commit(POSTS_GET_REQUEST);
 
             let query = {};
             if (payload !== null) {
-                query = {
-                    page: payload,
-                };
+                query.page = payload;
+            }
+            if (getters.searched !== '') {
+                query.q = getters.searched;
             }
             axios({url: '/api/posts', params: query, method: 'GET'})
                 .then(resp => {
@@ -68,6 +79,20 @@ const actions = {
                 });
         });
     },
+    [POSTS_SEARCH_REQUEST]: ({commit, dispatch}, payload) => {
+        return new Promise((resolve, reject) => {
+            commit(POSTS_SEARCH_REQUEST, payload);
+
+            dispatch(POSTS_GET_REQUEST, null);
+        });
+    },
+    [POSTS_SEARCH_CLEAR]: ({commit, dispatch}, payload) => {
+        return new Promise((resolve, reject) => {
+            commit(POSTS_SEARCH_CLEAR);
+
+            dispatch(POSTS_GET_REQUEST, null);
+        });
+    },
 };
 
 const mutations = {
@@ -86,6 +111,12 @@ const mutations = {
     [POSTS_UPDATE_SUCCESS]: (state, resp) => {
         let index = state.posts.findIndex(post => post.id === resp.post.id);
         state.posts[index] = resp.post;
+    },
+    [POSTS_SEARCH_REQUEST]: (state, search) => {
+        state.search = search;
+    },
+    [POSTS_SEARCH_CLEAR]: (state) => {
+        state.search = '';
     },
 };
 

@@ -1,7 +1,11 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-xl-4 offset-xl-8">
+            <div class="col-xl-4 ">
+                <post-search-field/>
+            </div>
+
+            <div class="col-xl-4 offset-xl-4">
                 <router-link class="btn btn-primary btn-block" :to="{ name: 'posts.create' }">
                     <strong>Create Post</strong>
                 </router-link>
@@ -48,9 +52,15 @@
 </template>
 
 <script>
+    import PostSearchField from "../../components/posts/PostSearchField";
+    import PostCard from "../../components/posts/PostCard";
     import {POSTS_GET_REQUEST} from '../../store/actions/posts';
 
     export default {
+        components: {
+            PostSearchField,
+            PostCard,
+        },
         computed: {
             isLoading() {
                 return this.$store.getters.loading;

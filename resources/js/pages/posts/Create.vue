@@ -38,7 +38,7 @@
 
     export default {
         components: {
-            TagAddField
+            TagAddField,
         },
         data() {
             return {
@@ -55,7 +55,7 @@
                 this.loading = true;
 
                 this.$store.dispatch(POSTS_STORE_REQUEST, this.post).then(response => {
-                    this.$router.push({ name: 'posts.index' })
+                    this.$router.push({name: 'posts.index'})
                 });
 
                 this.loading = false;
